@@ -22,23 +22,24 @@ Puedes ejecutarla en **Expo Go** escaneando el código QR o en **web** / **emula
 
 ## Integrantes
 
-- [Añade aquí los nombres de los integrantes del equipo]
-
+-Nicolas Fajardo id 409483
+-Valentina Quinayas id 386959
+-
 ---
 
 ## Instrucciones de instalación
 
 ### Requisitos
 
-- Node.js (v18 o superior recomendado)
+- Node.js (v24)
 - npm o yarn
 - Expo Go en tu móvil (opcional, para probar en dispositivo)
 
 ### Pasos
 
-1. **Clonar el repositorio** (si aún no lo tienes):
+1. **Clonar el repositorio** :
    ```bash
-   git clone https://github.com/Valentinaq-a/calculadoraimc
+   git clone
    cd calculadoraimc
    ```
 
@@ -67,15 +68,6 @@ Puedes ejecutarla en **Expo Go** escaneando el código QR o en **web** / **emula
 
 ---
 
-## Captura de pantalla
-
-Añade una captura de la app en ejecución (por ejemplo en `docs/screenshot.png`) y reemplaza el enlace de abajo:
-
-![Captura de la app](./docs/screenshot.png)
-
-*Si aún no tienes la captura, crea la carpeta `docs`, toma una captura desde Expo Go o el emulador y guárdala como `screenshot.png`.*
-
----
 
 ## Tecnologías
 
