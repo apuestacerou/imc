@@ -1,22 +1,27 @@
+/**
+ * Barra visual del IMC: cuatro segmentos (azul = bajo, verde = normal,
+ * naranja = sobrepeso, rojo = obesidad) y un indicador (▲) que se mueve
+ * según la posición en porcentaje (0–100).
+ */
+
 import { StyleSheet, Text, View } from "react-native";
 
-export default function IMCBar ({posicion}:{posicion:number}){
-    return (
-        <>
-        <View style={styles.barra}>
-            <View style={[styles.seccion,{backgroundColor:"blue"}]}/>
-            <View style={[styles.seccion, {backgroundColor:"green"}]}/>
-            <View style={[styles.seccion, {backgroundColor:"orange"}]}/>
-            <View style={[styles.seccion, {backgroundColor:"red"}]}/>
+export default function IMCBar({ posicion }: { posicion: number }) {
+  return (
+    <>
+      <View style={styles.barra}>
+        <View style={[styles.seccion, { backgroundColor: "blue" }]} />
+        <View style={[styles.seccion, { backgroundColor: "green" }]} />
+        <View style={[styles.seccion, { backgroundColor: "orange" }]} />
+        <View style={[styles.seccion, { backgroundColor: "red" }]} />
+      </View>
+      <View style={styles.indicadorContainer}>
+        <View style={[styles.indicador, { left: `${posicion}%` }]}>
+          <Text style={styles.flecha}>▲</Text>
         </View>
-
-        <View style={styles.indicadorContainer}>
-            <Text style={[styles.indicador,{left:`${posicion}%`}]}>
-                ▲
-            </Text>
-        </View>
-        </>
-    );
+      </View>
+    </>
+  );
 }
 
 const styles=StyleSheet.create({
@@ -41,6 +46,10 @@ const styles=StyleSheet.create({
 
     indicador:{
         position:"absolute",
+        alignItems:"center",
+        justifyContent:"center"
+    },
+    flecha:{
         fontSize:20
     }
 });

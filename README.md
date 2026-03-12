@@ -1,50 +1,105 @@
-# Welcome to your Expo app 👋
+# Calculadora IMC+
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Nombre de la app
 
-## Get started
+**Calculadora IMC+**
 
-1. Install dependencies
+---
 
+## Descripción
+
+Aplicación móvil desarrollada con **Expo** y **React Native** que calcula el **Índice de Masa Corporal (IMC)** a partir del peso (kg) y la altura (m). Incluye:
+
+- Campos para **edad**, **peso** y **altura**
+- Selector de **nivel de actividad** (Bajo, Medio, Alto)
+- Cálculo del IMC con categorías según la OMS: **Bajo peso**, **Normal**, **Sobrepeso**, **Obesidad**
+- Tarjeta de resultado con valor numérico, categoría con color y una **barra visual** con indicador que muestra en qué rango se encuentra el usuario
+- Recomendación de hábitos saludables
+
+Puedes ejecutarla en **Expo Go** escaneando el código QR o en **web** / **emulador** con los comandos de Expo.
+
+---
+
+## Integrantes
+
+- [Añade aquí los nombres de los integrantes del equipo]
+
+---
+
+## Instrucciones de instalación
+
+### Requisitos
+
+- Node.js (v18 o superior recomendado)
+- npm o yarn
+- Expo Go en tu móvil (opcional, para probar en dispositivo)
+
+### Pasos
+
+1. **Clonar el repositorio** (si aún no lo tienes):
+   ```bash
+   git clone https://github.com/Valentinaq-a/calculadoraimc
+   cd calculadoraimc
+   ```
+
+2. **Instalar dependencias:**
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. **Iniciar la aplicación:**
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+4. **Abrir la app:**
+   - En **Expo Go**: escanea el código QR que aparece en la terminal (misma red Wi‑Fi o usa `npx expo start --tunnel` si estás en otra red).
+   - En **web**: pulsa `w` en la terminal o abre la URL que muestra Expo.
+   - En **Android**: pulsa `a` (con emulador o dispositivo conectado).
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Comandos útiles
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+| Comando | Descripción |
+|--------|-------------|
+| `npx expo start` | Inicia el servidor de desarrollo |
+| `npx expo start --tunnel` | Inicia con tunnel (útil si el móvil no está en la misma Wi‑Fi) |
+| `npx expo start --clear` | Inicia limpiando la caché de Metro |
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## Captura de pantalla
 
-```bash
-npm run reset-project
+Añade una captura de la app en ejecución (por ejemplo en `docs/screenshot.png`) y reemplaza el enlace de abajo:
+
+![Captura de la app](./docs/screenshot.png)
+
+*Si aún no tienes la captura, crea la carpeta `docs`, toma una captura desde Expo Go o el emulador y guárdala como `screenshot.png`.*
+
+---
+
+## Tecnologías
+
+- **Expo** (~54)
+- **React Native**
+- **Expo Router** (navegación basada en archivos)
+- **TypeScript**
+
+---
+
+## Estructura del proyecto
+
 ```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+calculadoraimc/
+├── app/
+│   ├── _layout.tsx    # Layout raíz y Error Boundary
+│   ├── index.tsx       # Pantalla principal (formulario y resultado)
+│   ├── components/
+│   │   ├── ActivitySelector.tsx  # Botones Bajo / Medio / Alto
+│   │   ├── IMCBar.tsx            # Barra de colores e indicador
+│   │   └── ResultCard.tsx        # Tarjeta con IMC y categoría
+│   └── utils/
+│       └── imcCalculator.ts      # Lógica del IMC
+├── app.json
+├── package.json
+└── README.md
+```
