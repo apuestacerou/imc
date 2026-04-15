@@ -1,99 +1,44 @@
-import { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import ActivitySelector from "./components/ActivitySelector";
-import ResultCard from "./components/ResultCard";
-import { calcularIMClogic } from "./logic/calcularIMC";
+import { Text, TouchableOpacity, View } from "react-native";
+import { Link } from "expo-router";
 import { styles } from "./styles/homeStyles";
 
-export default function Home() {
-  const [activity, setActivity] = useState("");
-  const [edad, setEdad] = useState("");
-  const [peso, setPeso] = useState("");
-  const [altura, setAltura] = useState("");
-  const [imc, setImc] = useState<number | null>(null);
-  const [categoria, setCategoria] = useState("");
-  const [recomendacion, setRecomendacion] = useState('');
-  const [resultado, setResultado] = useState("");
-  const [colorResultado, setColorResultado] = useState("black");
-  const [posicionIndiador, setPosicionIndicador] = useState(0);
-
-  const calcularIMC = () => {
-    const resultadoCalculo = calcularIMClogic(
-      peso,
-      altura,
-      edad,
-      activity
-    );
-
-    if ((resultadoCalculo as any)?.error) {
-      setResultado((resultadoCalculo as any).error);
-      return;
-    }
-
-    setImc((resultadoCalculo as any).imc);
-    setPosicionIndicador((resultadoCalculo as any).posicion);
-    setCategoria((resultadoCalculo as any).categoria);
-    setRecomendacion((resultadoCalculo as any).recomendacion);
-    setColorResultado((resultadoCalculo as any).colorResultado);
-
-  };
-
+export default function InicioScreen() {
   return (
-    <View style={styles.container}>
-
+    <View style={styles.inicioContainer}>
       <Text style={styles.title}>CalculadoraIMC+</Text>
-      <Text style={styles.subtitle}>Calcula tu indice de masa corporal</Text>
+      <Text style={styles.subtitle}>
+        Elige quién va a calcular su IMC para usar las métricas adecuadas.
+      </Text>
 
-      <View style={styles.card}>
+      <View style={styles.inicioBotonera}>
+        <Link href="/adultos" asChild>
+          <TouchableOpacity
+            style={styles.menuButtonPrimario}
+            accessibilityRole="button"
+            accessibilityLabel="Abrir calculadora para adultos"
+          >
+            <Text style={styles.menuButtonPrimarioTexto}>Adultos</Text>
+            <Text style={styles.menuButtonSub}>
+              IMC clásico, recomendaciones y curso opcional
+            </Text>
+          </TouchableOpacity>
+        </Link>
 
-        <TextInput
-        placeholder="Edad:"
-        style={styles.input}
-        value={edad}
-        onChangeText={setEdad}
-        />
-
-        <TextInput
-        placeholder="Peso (kg):"
-        style={styles.input}
-        value={peso}
-        onChangeText={setPeso}
-        />
-
-        <TextInput
-        placeholder="Altura (m):"
-        style={styles.input}
-        value={altura}
-        onChangeText={setAltura}
-        />
-
-        <Text style={styles.label}>Nivel de actividad:</Text>
-
-        <ActivitySelector
-        activity={activity}
-        setActivity={setActivity}
-        />
-
-        <TouchableOpacity
-        style={styles.calculateButton}
-        onPress={calcularIMC}
-        >
-          <Text style={styles.calculateText}>Calcular IMC</Text>
-        </TouchableOpacity>
-
-        {resultado !==""&&(
-          <Text style={{marginTop:10}}>{resultado}</Text>
-        )}
-
-        <ResultCard
-        imc={imc}
-        categoria={categoria}
-        recomendacion={recomendacion}
-        colorResultado={colorResultado}
-        posicionIndiador={posicionIndiador}
-        />
+        <Link href="/ninos" asChild>
+          <TouchableOpacity
+            style={styles.menuButtonSecundario}
+            accessibilityRole="button"
+            accessibilityLabel="Abrir calculadora para niños y adolescentes OMS"
+          >
+            <Text style={styles.menuButtonSecundarioTexto}>
+              Niños y adolescentes
+            </Text>
+            <Text style={styles.menuButtonSubOscuro}>
+              Referencia OMS 2007 (5 a 19 años)
+            </Text>
+          </TouchableOpacity>
+        </Link>
       </View>
     </View>
   );
-
 }

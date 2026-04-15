@@ -1,83 +1,121 @@
-export function calcularIMClogic(
-    peso: string,
-    altura: string,
-    edad: string,
-    activity: string
-) {
-    if (!peso || !altura || !edad) {
-        return { error: "Por favor ingrese todos los campos" };
-    }
+/** Posición 0–100 % en la barra (4 franjas iguales: bajo peso, normal, sobrepeso, obesidad). */
+export function posicionBarraAdulto(imc: number): number {
+  const MIN = 14;
+  const BP = 18.5;
+  const N = 25;
+  const S = 30;
+  const MAX = 45;
 
-    const pesoNum = parseFloat(peso);
-    const alturaNum = parseFloat(altura);
-    const edadNum = parseFloat(edad);
+  if (imc < MIN) return 0;
+  if (imc > MAX) return 100;
 
-    const resultado = pesoNum / (alturaNum * alturaNum);
-    let posicion = 0;
+  if (imc < BP) {
+    return ((imc - MIN) / (BP - MIN)) * 25;
+  }
+  if (imc < N) {
+    return 25 + ((imc - BP) / (N - BP)) * 25;
+  }
+  if (imc < S) {
+    return 50 + ((imc - N) / (S - N)) * 25;
+  }
+  return 75 + ((imc - S) / (MAX - S)) * 25;
+}
 
-    if (resultado < 18.5) {
-        posicion = 10;
-    } else if (resultado < 25) {
-        posicion = 35;
-    } else if (resultado < 30) {
-        posicion = 60;
-    } else {
-        posicion = 85;
-    }
+function recomendacionAdulto(imc: number, edadNum: number): string {
+  const esMenor = edadNum < 18 && Number.isFinite(edadNum);
 
-    let categoria = "";
-    let recomendacion = "";
-    let colorResultado = "black";
+  if (imc < 18.5) {
+    return (
+      "Tu IMC sugiere bajo peso: prioriza ingestas regulares y alimentos densos en nutrientes " +
+      "(proteínas, legumbres, frutos secos, cereales integrales). Si hay cansancio o pérdida " +
+      "de peso no buscada, consulta con un profesional de la salud."
+    );
+  }
 
-    if (edadNum < 18) {
-        categoria = "IMC calculado para menor de edad";
-    } else {
-        categoria = "IMC calculado para adulto";
-    }
+  if (imc < 25) {
+    return (
+      "IMC en rango saludable. Mantén una alimentación variada (verdura y proteína en cada comida), " +
+      "hidratación, sueño regular y actividad física semanal (idealmente fuerza + cardio moderado)."
+    );
+  }
 
-    if (resultado < 18.5) {
-        categoria = "Bajo peso";
-        colorResultado = "blue";
+  if (imc < 30) {
+    const cercaObesidad = imc >= 28.5;
+    return (
+      (cercaObesidad ? "Estás cerca del rango de obesidad. " : "") +
+      "Conviene combinar más movimiento cotidiano (caminar, subir escaleras) con 2–3 sesiones " +
+      "de fuerza a la semana y ajustar porciones, ultraprocesados y bebidas azucaradas. " +
+      "Un nutricionista puede ayudarte con un plan sostenible."
+    );
+  }
 
-        if (activity === "alto") {
-            recomendacion = "Tienes actividad alta pero bajo peso. Podrias necesitar aumentar tu consumo calorico.";
-        } else {
-            recomendacion = "Se recomienda mejorar la alimentacion y ocnsultar conun profesional de la salud.";
-        }
-    } else if (resultado < 25) {
-        categoria = "Normal";
-        colorResultado = "green";
+  const obesidadGrave = imc >= 35;
+  return (
+    (esMenor
+      ? "En menores, cualquier pauta debe estar guiada por pediatría. "
+      : "") +
+    (obesidadGrave
+      ? "IMC muy elevado: prioriza seguridad (caminar, bici suave, natación) y valoración médica "
+      : "Obesidad: suma actividad gradual y apoyo nutricional ") +
+    "para un plan integral (salud cardiovascular, articulaciones y hábitos). Evita dietas extremas sin supervisión."
+  );
+}
 
-        if (activity === "bajo") {
-            recomendacion = "Tu IMC es normal, pero aumentar la actividad fisica puede mejorar tu salud.";
-        } else {
-            recomendacion = "Buen trabajo! Manten tus habitos saludables.";
-        }
-    } else if (resultado < 30) {
-        categoria = "Sobrepeso";
-        colorResultado = "orange";
+export function calcularIMClogic(peso: string, altura: string, edad: string) {
+  if (!peso || !altura || !edad) {
+    return { error: "Por favor ingrese todos los campos" };
+  }
 
-        if (activity === "bajo") {
-            recomendacion = "Aumentar la actividad fisica puede ayudarte a mejorar tu IMC.";
-        } else {
-            recomendacion = "Tu actividad fisica ayud, pero tambien es importante cuidar la alimentacion.";
-        }
-    } else {
-        categoria = "Obesidad";
-        colorResultado = "red";
+  const pesoNum = parseFloat(peso.replace(",", "."));
+  const alturaNum = parseFloat(altura.replace(",", "."));
+  const edadNum = parseFloat(edad.replace(",", "."));
 
-        if (activity === "bajo") {
-            recomendacion = "Se recomienda la actividad fisica y consultar con un profesional de la salud."
-        } else {
-            recomendacion = "Tu actividad fisica es positiva pero seria recomendable asesoria profesional."
-        }
-    }
+  if (
+    !Number.isFinite(pesoNum) ||
+    !Number.isFinite(alturaNum) ||
+    !Number.isFinite(edadNum)
+  ) {
+    return { error: "Usa solo números válidos en peso, altura y edad." };
+  }
 
-    return {
-        imc: resultado,
-        posicion,
-        categoria,
-        recomendacion,
-        colorResultado
-    };
+  if (pesoNum <= 0 || alturaNum <= 0) {
+    return { error: "Peso y altura deben ser mayores que cero." };
+  }
+
+  const resultado = pesoNum / (alturaNum * alturaNum);
+  const posicion = posicionBarraAdulto(resultado);
+
+  let categoria = "";
+  let recomendacion = "";
+  let colorResultado = "black";
+
+  if (edadNum < 18) {
+    categoria = "IMC calculado para menor de edad";
+  } else {
+    categoria = "IMC calculado para adulto";
+  }
+
+  if (resultado < 18.5) {
+    categoria = "Bajo peso";
+    colorResultado = "#1565c0";
+  } else if (resultado < 25) {
+    categoria = "Normal";
+    colorResultado = "#2e7d32";
+  } else if (resultado < 30) {
+    categoria = "Sobrepeso";
+    colorResultado = "#ef6c00";
+  } else {
+    categoria = "Obesidad";
+    colorResultado = "#c62828";
+  }
+
+  recomendacion = recomendacionAdulto(resultado, edadNum);
+
+  return {
+    imc: resultado,
+    posicion,
+    categoria,
+    recomendacion,
+    colorResultado,
+  };
 }
