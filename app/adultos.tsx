@@ -1,12 +1,12 @@
+import { Link } from "expo-router";
 import { useRef, useState } from "react";
 import {
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-  ScrollView,
 } from "react-native";
-import { Link } from "expo-router";
 import ResultCard from "./components/ResultCard";
 import { calcularIMClogic } from "./logic/calcularIMC";
 import { styles } from "./styles/homeStyles";
@@ -21,7 +21,7 @@ export default function AdultosScreen() {
   const [recomendacion, setRecomendacion] = useState("");
   const [resultado, setResultado] = useState("");
   const [colorResultado, setColorResultado] = useState("black");
-  const [posicionIndiador, setPosicionIndiador] = useState(0);
+  const [posicionIndicador, setPosicionIndicador] = useState(0);
 
   const nuevoCalculo = () => {
     setEdad("");
@@ -109,7 +109,7 @@ export default function AdultosScreen() {
           categoria={categoria}
           recomendacion={recomendacion}
           colorResultado={colorResultado}
-          posicionIndiador={posicionIndiador}
+          posicionIndiador={posicionIndicador}
           edadTexto={edad}
         />
 
