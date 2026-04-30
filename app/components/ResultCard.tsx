@@ -1,9 +1,9 @@
 import React from "react";
 import { Text, View } from "react-native";
+import { styles } from "../styles/homeStyles";
 import CursoPromoCard from "./CursoPromoCard";
 import MotivacionNinos from "./MotivacionNinos";
 import MunecoPorIMC from "./MunecoPorIMC";
-import { styles } from "../styles/homeStyles";
 
 type Props = {
   imc: number | null;
@@ -84,15 +84,29 @@ export default function ResultCard({
       )}
 
       <Text style={styles.leyendaBarra}>
-        Barra según IMC (escala orientativa 14–45): el triángulo marca tu valor dentro
-        de cada franja (bajo peso · normal · sobrepeso · obesidad).
+        Tu posición en la escala de IMC
       </Text>
 
+      <View style={styles.escalaNumerica}>
+        <Text>14</Text>
+        <Text>18.5</Text>
+        <Text>25</Text>
+        <Text>30</Text>
+        <Text>45</Text>
+      </View>
+
+      <View style={styles.etiquetas}>
+        <Text style={styles.etiqueta}>Bajo</Text>
+        <Text style={styles.etiqueta}>Normal</Text>
+        <Text style={styles.etiqueta}>Sobrepeso</Text>
+        <Text style={styles.etiqueta}>Obesidad</Text>
+      </View>
+
       <View style={styles.barraIMC}>
-        <View style={[styles.seccion, { backgroundColor: "#1565c0" }]} />
-        <View style={[styles.seccion, { backgroundColor: "#2e7d32" }]} />
-        <View style={[styles.seccion, { backgroundColor: "#ef6c00" }]} />
-        <View style={[styles.seccion, { backgroundColor: "#c62828" }]} />
+        <View style={[styles.seccion, { backgroundColor: "#90caf9" }]} />
+        <View style={[styles.seccion, { backgroundColor: "#a5d6a7" }]} />
+        <View style={[styles.seccion, { backgroundColor: "#ffcc80" }]} />
+        <View style={[styles.seccion, { backgroundColor: "#ef9a9a" }]} />
       </View>
 
       <View style={styles.indicadorContainer}>
