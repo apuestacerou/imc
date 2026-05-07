@@ -1,3 +1,5 @@
+import { parseAlturaMetros } from "../utils/altura";
+
 /** Posición 0–100 % en la barra (4 franjas iguales: bajo peso, normal, sobrepeso, obesidad). */
 export function posicionBarraAdulto(imc: number): number {
   const MIN = 14;
@@ -67,22 +69,22 @@ export function calcularIMClogic(peso: string, altura: string, edad: string) {
   }
 
   const pesoNum = parseFloat(peso.replace(",", "."));
-  const alturaNum = parseFloat(altura.replace(",", "."));
   const edadNum = parseFloat(edad.replace(",", "."));
 
-  if (
-    !Number.isFinite(pesoNum) ||
-    !Number.isFinite(alturaNum) ||
-    !Number.isFinite(edadNum)
-  ) {
+  if (!Number.isFinite(pesoNum) || !Number.isFinite(edadNum)) {
     return { error: "Usa solo números válidos en peso, altura y edad." };
   }
 
-  if (pesoNum <= 0 || alturaNum <= 0) {
+  const alturaM = parseAlturaMetros(altura);
+  if (alturaM == null) {
+    return { error: "Altura no válida. Usa centímetros (ej. 170) o metros (ej. 1,70)." };
+  }
+
+  if (pesoNum <= 0) {
     return { error: "Peso y altura deben ser mayores que cero." };
   }
 
-  const resultado = pesoNum / (alturaNum * alturaNum);
+  const resultado = pesoNum / (alturaM * alturaM);
   const posicion = posicionBarraAdulto(resultado);
 
   let categoria = "";

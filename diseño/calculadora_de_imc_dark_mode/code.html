@@ -1,0 +1,257 @@
+<!DOCTYPE html><html class="dark" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #0b1326;
+        }
+        /* Custom slider thumb styling */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #57f1db;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(87, 241, 219, 0.4);
+            margin-top: -8px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #2d3449;
+            border-radius: 4px;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-highest": "#2d3449",
+                    "primary": "#57f1db",
+                    "secondary": "#7bd0ff",
+                    "on-error": "#690005",
+                    "surface-dim": "#0b1326",
+                    "on-error-container": "#ffdad6",
+                    "on-surface-variant": "#bacac5",
+                    "surface": "#0b1326",
+                    "on-secondary-container": "#00374d",
+                    "tertiary-fixed": "#e0e0ff",
+                    "secondary-fixed": "#c4e7ff",
+                    "surface-variant": "#2d3449",
+                    "on-tertiary": "#131e8c",
+                    "inverse-surface": "#dae2fd",
+                    "surface-container-high": "#222a3d",
+                    "inverse-primary": "#006b5f",
+                    "surface-container-low": "#131b2e",
+                    "on-background": "#dae2fd",
+                    "background": "#0b1326",
+                    "on-tertiary-fixed": "#000767",
+                    "on-primary-fixed": "#00201c",
+                    "on-surface": "#dae2fd",
+                    "error-container": "#93000a",
+                    "on-secondary": "#00354a",
+                    "error": "#ffb4ab",
+                    "surface-tint": "#3cddc7",
+                    "primary-fixed": "#62fae3",
+                    "surface-bright": "#31394d",
+                    "primary-container": "#2dd4bf",
+                    "tertiary-container": "#b3b9ff",
+                    "primary-fixed-dim": "#3cddc7",
+                    "outline": "#859490",
+                    "on-primary-fixed-variant": "#005047",
+                    "on-tertiary-fixed-variant": "#2f3aa3",
+                    "on-primary": "#003731",
+                    "tertiary": "#d5d7ff",
+                    "secondary-fixed-dim": "#7bd0ff",
+                    "inverse-on-surface": "#283044",
+                    "outline-variant": "#3c4a46",
+                    "on-secondary-fixed-variant": "#004c69",
+                    "on-primary-container": "#00574d",
+                    "surface-container": "#171f33",
+                    "secondary-container": "#00a6e0",
+                    "tertiary-fixed-dim": "#bdc2ff",
+                    "surface-container-lowest": "#060e20",
+                    "on-secondary-fixed": "#001e2c",
+                    "on-tertiary-container": "#3641a9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "xxl": "48px",
+                    "xs": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "gutter": "16px",
+                    "container-margin": "20px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "button": ["Lexend"],
+                    "display": ["Lexend"],
+                    "h1": ["Lexend"],
+                    "label-md": ["Lexend"],
+                    "body-md": ["Lexend"],
+                    "h2": ["Lexend"],
+                    "body-sm": ["Lexend"],
+                    "h3": ["Lexend"],
+                    "body-lg": ["Lexend"]
+            },
+            "fontSize": {
+                    "button": ["16px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "h2": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "h3": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl shadow-none">
+<div class="flex justify-between items-center h-16 px-6 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A close-up professional portrait of a smiling user in a minimalist clinical setting. The lighting is soft and high-key, emphasizing a clean and proactive wellness aesthetic. The color palette features deep navy backgrounds with subtle teal reflections, creating a sense of digital serenity and high-end personal health coaching." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKQ_OP-Kue2oa3wFjvAbvl60qzJzog3Z_hI70uIC-UsA0sKw6I3VNg0HkdqDHDOyTWb_7MPiPvkX_ub3iva5H-4gKbRJDCIaq-_ts2BQKgw4hXWnKg4nNhrclXNlAzrcmfwlyBOKAuP7e_yYKPlDZXSrtyYixab7x2HkAYWyEQlSeWLOJuqy4_KZkDb3w-hiznA2ZcNPZSgr8PheGPZmn4L8PaPvLqNuxlOaXOtV0XushjhMcU1i53sZQQq0SLqd-5IPAdHQVbTnoK">
+</div>
+<span class="text-xl font-extrabold text-teal-400 drop-shadow-[0_0_10px_rgba(45,212,191,0.3)] font-lexend font-medium tracking-tight">Vitality</span>
+</div>
+<button class="text-slate-400 hover:text-teal-300 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<main class="flex-1 mt-16 mb-20 px-container-margin pt-lg max-w-lg mx-auto w-full">
+<div class="space-y-lg">
+<!-- Header Section -->
+<section class="text-center py-sm">
+<h1 class="font-h1 text-h1 text-on-surface mb-xs">BIENVENIDO</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sigue tu progreso diario y mantén el control de tu salud</p>
+</section>
+<!-- Bento Grid Layout for Inputs -->
+<div class="grid grid-cols-2 gap-md">
+<!-- Gender Selection Card -->
+<div class="col-span-2 bg-surface-container border border-outline-variant rounded-xl p-md flex flex-col gap-sm shadow-none">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Género</span>
+<div class="flex gap-sm h-14">
+<button class="flex-1 flex items-center justify-center gap-2 rounded-lg bg-primary-container text-on-primary-container font-button transition-all active:scale-95">
+<span class="material-symbols-outlined">male</span>
+                            Hombre
+                        </button>
+<button class="flex-1 flex items-center justify-center gap-2 rounded-lg bg-surface-container-highest text-on-surface-variant font-button transition-all hover:bg-surface-bright active:scale-95">
+<span class="material-symbols-outlined">female</span>
+                            Mujer
+                        </button>
+</div>
+</div>
+<!-- Weight Card -->
+<div class="bg-surface-container border border-outline-variant rounded-xl p-md flex flex-col items-center justify-center gap-xs">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Peso (kg)</span>
+<div class="flex flex-col items-center py-xs">
+<span class="text-h1 font-h1 text-primary">72</span>
+<div class="flex gap-sm">
+<button class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary">remove</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Height Card -->
+<div class="bg-surface-container border border-outline-variant rounded-xl p-md flex flex-col items-center justify-center gap-xs">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Altura (cm)</span>
+<div class="flex flex-col items-center py-xs">
+<span class="text-h1 font-h1 text-primary">178</span>
+<div class="flex gap-sm">
+<button class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary">remove</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Age Card -->
+<div class="col-span-2 bg-surface-container border border-outline-variant rounded-xl p-md flex flex-col gap-md">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Edad</span>
+<span class="font-h2 text-h2 text-primary">28</span>
+</div>
+<div class="relative w-full h-8 flex items-center">
+<input class="w-full h-2 bg-surface-container-highest rounded-full appearance-none cursor-pointer outline-none" max="100" min="5" type="range" value="28">
+</div>
+</div>
+</div>
+<!-- CTA Section -->
+<div class="pt-md pb-xl">
+<button class="w-full h-16 rounded-xl bg-gradient-to-r from-teal-400 to-sky-400 text-on-primary-fixed font-button text-button shadow-[0_4px_20px_rgba(45,212,191,0.25)] hover:shadow-[0_8px_30px_rgba(45,212,191,0.4)] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                    Calcular
+                    <span class="material-symbols-outlined">bolt</span>
+</button>
+</div>
+<!-- Health Insight Preview Card (Glassmorphic) -->
+<div class="bg-surface-container-low/40 backdrop-blur-md border border-outline-variant/30 rounded-2xl p-lg relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-h3 text-h3 text-primary mb-sm">Por qué es importante</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                        El Índice de Masa Corporal es un indicador confiable para identificar categorías de peso que pueden llevar a problemas de salud. Nuestro sistema ajusta automáticamente los rangos si el perfil detectado es de un menor de edad.
+                    </p>
+</div>
+<div class="absolute -right-10 -bottom-10 opacity-10">
+<span class="material-symbols-outlined text-[120px]">monitor_heart</span>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 border-t border-slate-800 bg-slate-950/90 backdrop-blur-2xl shadow-[0_-8px_30px_rgba(45,212,191,0.05)] rounded-t-2xl">
+<div class="flex justify-around items-center h-20 w-full px-4 pb-safe">
+<!-- Active: BMI -->
+<div class="flex flex-col items-center justify-center text-teal-400 bg-teal-400/10 rounded-2xl px-4 py-1.5 active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: &quot;FILL&quot; 1;">calculate</span>
+<span class="text-[10px] font-lexend font-semibold uppercase tracking-wider mt-1">IMC</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800/50 transition-all active:scale-90 duration-150 rounded-2xl px-4 py-1.5">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-lexend font-semibold uppercase tracking-wider mt-1">HISTORIAL</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800/50 transition-all active:scale-90 duration-150 rounded-2xl px-4 py-1.5">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="text-[10px] font-lexend font-semibold uppercase tracking-wider mt-1">RECOMENDACIONES</span>
+</div>
+</div>
+</nav>
+
+
+</body></html>

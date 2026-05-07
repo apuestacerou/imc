@@ -3,6 +3,7 @@ import {
   type WhoLms,
   type WhoSex,
 } from "./whoBmiLmsData";
+import { parseAlturaMetros } from "../utils/altura";
 
 const MIN_MONTH = 61;
 const MAX_MONTH = 228;
@@ -136,18 +137,20 @@ export function calcularIMCNinosOMS(
   }
 
   const pesoNum = parseFloat(peso.replace(",", "."));
-  const alturaNum = parseFloat(altura.replace(",", "."));
   const edadNum = parseFloat(edadAnios.replace(",", "."));
 
-  if (
-    !Number.isFinite(pesoNum) ||
-    !Number.isFinite(alturaNum) ||
-    !Number.isFinite(edadNum)
-  ) {
+  if (!Number.isFinite(pesoNum) || !Number.isFinite(edadNum)) {
     return { error: "Usa solo números válidos." };
   }
 
-  if (pesoNum <= 0 || alturaNum <= 0) {
+  const alturaM = parseAlturaMetros(altura);
+  if (alturaM == null) {
+    return {
+      error: "Altura no válida. Usa centímetros (ej. 120) o metros (ej. 1,20).",
+    };
+  }
+
+  if (pesoNum <= 0) {
     return { error: "Peso y altura deben ser mayores que cero." };
   }
 
@@ -160,7 +163,7 @@ export function calcularIMCNinosOMS(
 
   const edadMeses = edadNum * 12;
 
-  const imc = pesoNum / (alturaNum * alturaNum);
+  const imc = pesoNum / (alturaM * alturaM);
   const lms = lmsInterpolado(edadMeses, sexo as WhoSex);
   const zScore = imcZScoreOMS(imc, lms);
 
